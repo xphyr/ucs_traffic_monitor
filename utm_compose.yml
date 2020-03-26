@@ -1,0 +1,39 @@
+# Use admin/password for Influx login
+version: '3.1'
+
+services:
+    influxdb:
+        image: influxdb
+        restart: always
+        ports:
+            - 8086:8086
+        environment:
+            INFLUXDB_DB: utmdb0
+            INFLUXDB_ADMIN_USER: admin
+            INFLUXDB_ADMIN_PASSWORD: admin
+            INFLUXDB_USER: telegraf
+            INFLUXDB_USER_PASSWORD: secretpassword
+
+    telegraph:
+        build: .
+        restart: always
+        depends_on:
+            - influxdb
+        volumes:
+            - ./telegraf/ucs_domains.txt:/usr/local/telegraf/ucs_domains.txt
+
+    grafana:
+        image: grafana/grafana
+        ports: 
+            - 3000:3000
+        environment:
+            GF_INSTALL_PLUGINS: agenty-flowcharting-panel,grafana-piechart-panel,larona-epict-panel
+            GF_SECURITY_ADMIN_USER: admin
+            GF_SECURITY_ADMIN_PASSWORD: password
+            HTTP_PROXY: ${http_proxy}
+            HTTPS_PROXY: ${https_proxy}
+        depends_on:
+            - influxdb
+        volumes:
+            - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+            - ./grafana:/etc/grafana/provisioning/dashboards

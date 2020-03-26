@@ -65,3 +65,14 @@ Import the [dashboards](https://github.com/paregupt/ucs_traffic_monitor/tree/mas
 For detailed steps-by-step instructions, especially if you do not have prior experience with Grafana, InfluxDB and Telegraf, check out: [Cisco UCS monitoring using Grafana, InfluxDB, Telegraf – UTM Installation](https://www.since2k7.com/blog/2020/02/29/cisco-ucs-monitoring-using-grafana-influxdb-telegraf-utm-installation/)
  
 
+## Running with Docker Compose
+
+The entire stack can also be started up using [docker-compose](https://docs.docker.com/compose/)
+
+Update the file telegraf/ucs_domains.txt with YOUR ucs information.
+
+```
+$ docker-compose -f utm_compose.yml up
+```
+
+This creates a default instance of Influx, Telegraf and Grafana. You can log into Grafana by going to http://localhost:3000 and logging in with "admin:password".
