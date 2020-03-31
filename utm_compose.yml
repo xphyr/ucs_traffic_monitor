@@ -1,5 +1,5 @@
 # Use admin/password for Influx login
-version: '3.1'
+version: '3.7'
 
 services:
     influxdb:
