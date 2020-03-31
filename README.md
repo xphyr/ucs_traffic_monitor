@@ -69,7 +69,7 @@ For detailed steps-by-step instructions, especially if you do not have prior exp
 
 The entire stack can also be started up using [docker-compose](https://docs.docker.com/compose/)
 
-Update the file telegraf/ucs_domains.txt with YOUR ucs information.
+Edit the file telegraf/ucs_domains.txt with YOUR ucs information. Once you have updated the ucs_domains.txt file you can run docker-compose to bring up local environment which includes InfluxDB, Telegraf and Grafana
 
 ```
 $ docker-compose -f utm_compose.yml up
